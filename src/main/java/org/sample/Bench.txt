@@ -1,0 +1,6 @@
+// 1. mvn clean install
+// 2. java -jar target/benchmarks.jar -f 1 -wi 2 -i 5
+
+// for nodes = 903, TODO
+//CC.f.OneIsland.testtest    avgt   40  1802.839 ± 32.149  us/op
+//CC.f.ThreeIsland.testtest  avgt   40  2477.653 ± 53.397  us/op
