@@ -32,54 +32,23 @@
 package org.sample;
 
 import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.runner.Runner;
+
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class CliqueIsland {
-    @State(Scope.Benchmark)
+    @State(Scope.Thread)
     public static class GraphState
     {
-        public Graph graphChars = new Graph();
-        public GraphState() {
-            for(int i = 1; i < POD.nodesNum-1; ++i)
-            {
-                graphChars.addEdge(1, i);
-            }
-
-            for(int z = 1; z < graphChars.nodeList.size();++z)
-            {
-                for(int y = z+1; y < graphChars.nodeList.size();++y)
-                {
-                    graphChars.addEdge(z,y);
-                }
-            }
-            System.out.println("CLIQUE ISLAND BENCHMARK");
-            System.out.println("NODES: "+graphChars.nodeCount);
-//            graphChars.addEdge('a', 'b');
-//            graphChars.addEdge('a', 'c');
-//            graphChars.addEdge('a', 'd');
-//            graphChars.addEdge('a', 'e');
-//            graphChars.addEdge('a', 'f');
-//            graphChars.addEdge('a', 'g');
-//            graphChars.addEdge('a', 'y');
-//            graphChars.addEdge('a', 'z');
-//            graphChars.addEdge('a', 'w');
-        }
+        public static Graph graphChars = new CliqueGraph();
     }
-    //    @Setup(Level.Trial)
-//    public void doSetup() {
-//        public static int i = 0;
-//        System.out.println("Do Setup #" + i);
-//    }
-//
-//    @TearDown(Level.Trial)
-//    public void doTearDown() {
-//        System.out.println("Do TearDown #" + i);
-//    }
+
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public static String testtest(GraphState graphState) {
-        return ""+graphState.graphChars.countGraphs();
+        return ""+ graphState.graphChars.countGraphs();
     }
 
     public void test1()
@@ -92,3 +61,4 @@ public class CliqueIsland {
         System.out.println(graphChars.countGraphs());
     }
 }
+
