@@ -5,8 +5,10 @@ import java.util.HashSet;
 
 //Basically a clique the size of POD.nodesNum
 class CliqueGraph extends Graph {
+//    GraphConcurrent graphConcurrent;
     public CliqueGraph()
     {
+//        graphConcurrent = new GraphConcurrent();
         edgeList = new ArrayList<Edge>();
         nodeList = new ArrayList<Integer>();
         for(int i = 1; i < POD.nodesNum-1; ++i)
