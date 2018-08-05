@@ -10,6 +10,11 @@ public class Main {
 //        System.out.println(cg.countGraphs());
 
         GraphConcurrent graphConcurrent = new GraphConcurrent();
-
+        graphConcurrent.addNode(1);
+        graphConcurrent.addNode(2);
+        graphConcurrent.addNode(5642);
+        graphConcurrent.addNode(645642435);
+        graphConcurrent.addEdge(1,2);
+        graphConcurrent.addEdge(1,23);
     }
 }

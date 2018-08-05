@@ -198,48 +198,66 @@ public class GraphConcurrent {
         System.out.println("Graph created.");
     }
 
+    public void addNode(int key)
+    {
+        nodeTree.put(key, new Node(key));
+        neighbors.putIfAbsent(key, new LinkedList<>());
+
+        visitedNodesMapper.put(key, new AtomicBoolean(false));
+    }
+
+    public void addEdge(int key, int target)
+    {
+//        visitedNodesMapper.put(key, new AtomicBoolean(false));// DO WE NEED THIS HERE?
+        if(nodeTree.keySet().contains(key) && nodeTree.keySet().contains(target))
+        {
+            neighbors.get(key).add(target);
+        }
+    }
+
+
     /**
      * Construct a graph from an adjacency matrix in a file.
      * @param fileName
      */
-    public void constructGraphFromFile(String fileName) {
-
-        System.out.println("Construction of graph from file started");
-
-        File file = new File(fileName);
-
-        try(BufferedReader br = new BufferedReader(new FileReader(file))) {
-
-            String numberLine = br.readLine();
-            int nodeCount = Integer.valueOf(numberLine);
-
-            visitedNodesMapper = new ConcurrentHashMap<>(nodeCount);
-            int count = 0;
-            for(String line; (line = br.readLine()) != null; ) {
-                String[] data = line.split("\\s+");
-
-                List<Integer> neighbours = new LinkedList<>();
-
-                for(int i = 0; i < data.length ; i++) {
-                    if(data[i].equals("1")) {
-                        neighbours.add(i);
-                    }
-                }
-
-                neighbors.put(count, neighbours);
-
-                nodeTree.put(count, new Node(count));
-                visitedNodesMapper.put(count, new AtomicBoolean(false));
-
-                count++;
-
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Graph.class.getName()).log(Level.SEVERE, "Failed to construct graph from file.", ex);
-            return;
-        }
-        System.out.println("Construction of graph from file finished");
-    }
+//    public void constructGraphFromFile(String fileName) {
+//
+//        System.out.println("Construction of graph from file started");
+//
+//        File file = new File(fileName);
+//
+//        try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+//
+//            String numberLine = br.readLine();
+//            int nodeCount = Integer.valueOf(numberLine);
+//
+//            visitedNodesMapper = new ConcurrentHashMap<>(nodeCount);
+//            int count = 0;
+//            for(String line; (line = br.readLine()) != null; ) {
+//                String[] data = line.split("\\s+");
+//
+//                List<Integer> neighbours = new LinkedList<>();
+//
+//                for(int i = 0; i < data.length ; i++) {
+//                    if(data[i].equals("1")) {
+//                        neighbours.add(i);
+//                    }
+//                }
+//
+//                neighbors.put(count, neighbours);
+//
+//                nodeTree.put(count, new Node(count));
+//                visitedNodesMapper.put(count, new AtomicBoolean(false));
+//
+//                count++;
+//
+//            }
+//        } catch (IOException ex) {
+//            Logger.getLogger(Graph.class.getName()).log(Level.SEVERE, "Failed to construct graph from file.", ex);
+//            return;
+//        }
+//        System.out.println("Construction of graph from file finished");
+//    }
 
     private void constructGraphFile(String fileName, int size) {
         System.out.println("Construction of graph file started.");
@@ -291,7 +309,7 @@ public class GraphConcurrent {
         protected void compute() {
 
             AtomicInteger atomicInteger = new AtomicInteger();
-//            atomicInteger. threadName = Thread.currentThread().getName();
+            //atomicInteger. threadName = Thread.currentThread().getName();
 
             AtomicBoolean isVisited = visitedNodesMapper.get(node);
             if(isVisited.getAndSet(true)) {
