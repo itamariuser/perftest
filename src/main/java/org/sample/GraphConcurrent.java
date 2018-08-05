@@ -57,22 +57,15 @@ public class GraphConcurrent {
 //    }
 
     /**
-     * Choose how many threads should subtask the search.
-     * @param cmd
-     * @param graph
+     * Start the Connected Component search with a set number of threads
+     * @Param startAlgorithm - number of threads to run
      */
-//    protected static void numOfExecutingThreads(CommandLine cmd, Graph graph) {
-//        if(cmd.hasOption("t")) {
-//            String threadCountString = cmd.getOptionValue("t");
-//            Integer threadCount = Integer.valueOf(threadCountString);
-//            graph.execute(threadCount);
-//        } else {
-//            graph.execute(1);
-//        }
-//    }
+    public void startAlgorithm(Integer threadCount) {
+        execute(threadCount);
+    }
 
     /**
-     * Determines if the graph should be created from a file or on the go.
+     * DO NOT USE IN OUR VERSION: Determines if the graph should be created from a file or on the go.
      * @param cmd
      * @param graph
      */
@@ -142,7 +135,6 @@ public class GraphConcurrent {
         long endTime = System.nanoTime();
         long elapsedTime = endTime - startTime;
         System.out.println("Algorithm execution took " + elapsedTime + " nanoseconds");
-
     }
 
     /**
