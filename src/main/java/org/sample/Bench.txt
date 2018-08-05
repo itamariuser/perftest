@@ -11,8 +11,27 @@ FourIsland.testtest    avgt          2427.283          us/op
 OneIsland.testtest     avgt          2297.444          us/op
 ThreeIsland.testtest   avgt          2126.018          us/op
 
+1. HashSet instead of ArrayList:
+With HashSet<E> nodeList:
+Benchmark                        Mode  Cnt        Score        Error  Units
+CliqueIsland.testtest            avgt    5  2313433.049 ± 165688.407  us/op
+FlowerIsland.testtest            avgt    5     3589.311 ±    144.886  us/op
+FourIsland.testtest              avgt    5     3507.013 ±    860.735  us/op
+InitBenchmarks.CliqueInit        avgt    5    16310.723 ±   2255.669  us/op
+InitBenchmarks.FlowerIslandInit  avgt    5      107.514 ±     85.437  us/op
+InitBenchmarks.FourIslandInit    avgt    5      108.698 ±     71.957  us/op
+InitBenchmarks.ThreeIslandInit   avgt    5      105.625 ±     98.420  us/op
+ThreeIsland.testtest             avgt    5     2326.262 ±     57.809  us/op
 
+With ArrayList<E> nodeList:
+Benchmark                        Mode  Cnt        Score        Error  Units
+CliqueIsland.testtest            avgt    5  2142073.634 ± 235150.615  us/op
+FlowerIsland.testtest            avgt    5     3468.182 ±    249.036  us/op
+FourIsland.testtest              avgt    5     3450.733 ±    319.203  us/op
+InitBenchmarks.CliqueInit        avgt    5   104748.951 ±   6728.700  us/op
+InitBenchmarks.FlowerIslandInit  avgt    5      112.240 ±     58.282  us/op
+InitBenchmarks.FourIslandInit    avgt    5      467.705 ±     47.511  us/op
+InitBenchmarks.ThreeIslandInit   avgt    5      468.459 ±     44.588  us/op
+ThreeIsland.testtest             avgt    5     2308.225 ±    151.624  us/op
 
-
-
-
+Conclusion: HashSet shortens initialization by a factor of 10.

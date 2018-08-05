@@ -5,29 +5,39 @@ import java.util.HashSet;
 import java.util.Set;
 
 class Graph<E extends Comparable<E>> {
-    class Node {
-        E name;
-
-        public Node(E name) {
-            this.name = name;
-        }
-    }
+//    class Node {
+//        E name;
+//
+//        public Node(E name) {
+//            this.name = name;
+//        }
+//
+//        @Override
+//        public int hashCode() {
+//            return name.hashCode();
+//        }
+//
+//        @Override
+//        public boolean equals(Object obj) {
+//            return ((Node)obj).name.equals(this.name);
+//        }
+//    }
 
     class Edge {
-        Node startNode, endNode;
+        E startNode, endNode;
 
-        public Edge(Node startNode, Node endNode) {
+        public Edge(E startNode, E endNode) {
             this.startNode = startNode;
             this.endNode = endNode;
         }
     }
 
     ArrayList<Edge> edgeList;
-    ArrayList<Node> nodeList;
+    ArrayList<E> nodeList;
     public long nodeCount;
     public Graph() {
         edgeList = new ArrayList<Edge>();
-        nodeList = new ArrayList<Node>();
+        nodeList = new ArrayList<E>();
     }
 
     /**
@@ -41,22 +51,39 @@ class Graph<E extends Comparable<E>> {
      *            the ending Node from the edge
      */
     public void addEdge(E startNode, E endNode) {
-        Node start = null, end = null;
-        for (Node node : nodeList) {
-            if (startNode.compareTo(node.name) == 0) {
-                start = node;
-            }
-            else if (endNode.compareTo(node.name) == 0) {
-                end = node;
-            }
-        }
+//        System.out.println("START: "+startNode);
+//        System.out.println("END: "+endNode);
+        E start = null, end = null;
+//        Node startN = new Node(startNode);
+//        Node endN = new Node(endNode);
+//        for (E node : nodeList) {
+//            if (startNode.compareTo(node) == 0) {
+//                start = node;
+//            }
+//            else if (endNode.compareTo(node) == 0) {
+//                end = node;
+//            }
+//        }
+
+        if(nodeList.contains(startNode))
+            start = startNode;
+        else if(nodeList.contains(endNode))
+            end = endNode;
+//        for (Node node : nodeList) {
+//            System.out.println(node.name);
+//        }
+//        if(nodeList.contains(startN))
+//            start = startN;
+//        if(nodeList.contains(endN))
+//            start = endN;
+
         if (start == null) {
-            start = new Node(startNode);
+            start = startNode;
             ++nodeCount;
             nodeList.add(start);
         }
         if (end == null) {
-            end = new Node(endNode);
+            end = endNode;
             ++nodeCount;
             nodeList.add(end);
         }
@@ -75,12 +102,12 @@ class Graph<E extends Comparable<E>> {
      */
     public int countGraphs() {
         int count = 0;
-        Set<Node> markedNodes = new HashSet<Node>();
+        Set<E> markedNodes = new HashSet<E>();
 
-        for (Node n : nodeList) {
+        for (E n : nodeList) {
             if (!markedNodes.contains(n)) {
                 markedNodes.add(n);
-                markedNodes.addAll(depthFirstSearch(n, new ArrayList<Node>()));
+                markedNodes.addAll(depthFirstSearch(n, new ArrayList<E>()));
                 count++;
             }
         }
@@ -101,7 +128,7 @@ class Graph<E extends Comparable<E>> {
      *
      */
 
-    public ArrayList<Node> depthFirstSearch(Node n, ArrayList<Node> visited) {
+    public ArrayList<E> depthFirstSearch(E n, ArrayList<E> visited) {
         visited.add(n);
         for (Edge e : edgeList) {
             if (e.startNode.equals(n) && !visited.contains(e.endNode)) {
@@ -111,7 +138,7 @@ class Graph<E extends Comparable<E>> {
         return visited;
     }
 
-    public ArrayList<Node> breadthFirstSearch(Node n, ArrayList<Node> visited) {
+    public ArrayList<E> breadthFirstSearch(E n, ArrayList<E> visited) {
         visited.add(n);
         for (Edge e : edgeList) {
             if (e.startNode.equals(n) && !visited.contains(e.endNode)) {

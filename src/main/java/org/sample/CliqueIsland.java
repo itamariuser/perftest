@@ -51,14 +51,5 @@ public class CliqueIsland {
         return ""+ graphState.graphChars.countGraphs();
     }
 
-    public void test1()
-    {
-        Graph graphChars = new Graph();
-        for(int i = 0; i < POD.nodesNum-1; ++i)
-        {
-            graphChars.addEdge(1, i);
-        }
-        System.out.println(graphChars.countGraphs());
-    }
 }
 
