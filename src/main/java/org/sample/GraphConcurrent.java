@@ -122,7 +122,7 @@ public class GraphConcurrent {
 
         ForkJoinPool pool = new ForkJoinPool(threadCount);
         // check each node, because the graph may not be connected
-        System.out.println("Algorithm execution started with " + threadCount + " threads");
+//        System.out.println("Algorithm execution started with " + threadCount + " threads");
         long startTime = System.nanoTime();
         for(Integer node : visitedNodesMapper.keySet()) {
             if(visitedNodesMapper.get(node).get()) {
@@ -134,7 +134,7 @@ public class GraphConcurrent {
 
         long endTime = System.nanoTime();
         long elapsedTime = endTime - startTime;
-        System.out.println("Algorithm execution took " + elapsedTime + " nanoseconds");
+//        System.out.println("Algorithm execution took " + elapsedTime + " nanoseconds");
     }
 
     /**
@@ -170,7 +170,7 @@ public class GraphConcurrent {
         ThreadLocalRandom random = ThreadLocalRandom.current();
         visitedNodesMapper = new ConcurrentHashMap<>(nodeCount);
 
-        System.out.println("Started graph creation.");
+//        System.out.println("Started graph creation.");
 
         for(int i=0 ; i < nodeCount ; i++) {
 
@@ -187,7 +187,7 @@ public class GraphConcurrent {
             nodeTree.put(i, new Node(i));
         }
 
-        System.out.println("Graph created.");
+//        System.out.println("Graph created.");
     }
 
     public void addNode(int key)
@@ -252,7 +252,7 @@ public class GraphConcurrent {
 //    }
 
     private void constructGraphFile(String fileName, int size) {
-        System.out.println("Construction of graph file started.");
+//        System.out.println("Construction of graph file started.");
         File file = new File(fileName);
         try {
             file.createNewFile();
@@ -280,7 +280,7 @@ public class GraphConcurrent {
             Logger.getLogger(Graph.class.getName()).log(Level.SEVERE, "Failed to construct adjecancy matrix file.", ex);
             return;
         }
-        System.out.println("Construction of graph file finished.");
+//        System.out.println("Construction of graph file finished.");
 
     }
 
@@ -306,7 +306,7 @@ public class GraphConcurrent {
             AtomicBoolean isVisited = visitedNodesMapper.get(node);
             if(isVisited.getAndSet(true)) {
                 atomicInteger.set(1);
-                System.out.println("New Connected Component");
+//                System.out.println("New Connected Component");
                 return;
             }
 

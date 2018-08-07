@@ -9,15 +9,10 @@ public class ConcurrentIslandBenchmark {
         public GraphConcurrent graphConcurrent = new GraphConcurrent();
         public GraphState()
         {
-            for(int i = 0; i< 503223;++i) {
-                graphConcurrent.addNode(i);
+            graphConcurrent.addNode(1);
+            for (int i = 2; i < POD.nodesNum + 1; ++i) {
+                graphConcurrent.addEdge(1, i);
             }
-            graphConcurrent.addNode(2);
-            graphConcurrent.addNode(5642);
-            graphConcurrent.addNode(645642435);
-            graphConcurrent.addEdge(1,2);
-            graphConcurrent.addEdge(1,23);
-            graphConcurrent.startAlgorithm(3);
         }
     }
 
