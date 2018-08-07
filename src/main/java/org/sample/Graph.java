@@ -104,7 +104,7 @@ class Graph<E extends Comparable<E>> {
      */
     public int countGraphs() {
         int count = 0;
-        Set<E> markedNodes = new HashSet<E>();
+        Set<E> markedNodes = new HashSet<>();
 
         for (E n : nodeList) {
             if (!markedNodes.contains(n)) {
