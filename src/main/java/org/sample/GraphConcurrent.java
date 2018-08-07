@@ -23,7 +23,7 @@ public class GraphConcurrent {
     /**
      * Map between a Node's number and it's corresponding object, effectively representing a tree.
      */
-    private ConcurrentHashMap<Integer, Node> nodeTree;
+    public ConcurrentHashMap<Integer, Node> nodeTree;
 
 
     /**
@@ -36,7 +36,7 @@ public class GraphConcurrent {
      *  Map between a Node and it's discovery status, i.e. if it was visited already.
      */
     private ConcurrentHashMap<Integer, AtomicBoolean> visitedNodesMapper;
-
+    int ccnum = 0;
     public GraphConcurrent() {
         nodeTree = new ConcurrentHashMap<>();
         neighbors = new ConcurrentHashMap<>();
@@ -45,73 +45,12 @@ public class GraphConcurrent {
 
 
     /**
-     * Choose whether or not to output the built tree to a file.
-     * @param cmd
-     * @param graph
-     */
-//    protected static void chooseOutputToFile(CommandLine cmd, Graph graph) {
-//        if(cmd.hasOption("gf")) {
-//            String outputFileName = cmd.getOptionValue("gf");
-//            graph.writeToFile(outputFileName);
-//        }
-//    }
-
-    /**
      * Start the Connected Component search with a set number of threads
      * @Param startAlgorithm - number of threads to run
      */
     public void startAlgorithm(Integer threadCount) {
         execute(threadCount);
     }
-
-    /**
-     * DO NOT USE IN OUR VERSION: Determines if the graph should be created from a file or on the go.
-     * @param cmd
-     * @param graph
-     */
-//    protected static void determineGraphOrigin(CommandLine cmd, Graph graph) {
-//        if(cmd.hasOption("n")) {
-//            String nodeCountString = cmd.getOptionValue("n", "1");
-//            Integer nodeCount = Integer.valueOf(nodeCountString);
-//            graph.generateGraph(nodeCount);
-//        } else if (cmd.hasOption("i")) {
-//            String fileName = cmd.getOptionValue("i");
-//            graph.constructGraphFromFile(fileName);
-//        }
-//    }
-
-    /**
-     * Determines the location of the print file in which the
-     * thread execution time and data should be written.
-     * @param cmd
-     */
-//    protected static void determinePrintLocation(CommandLine cmd) {
-//        if(cmd.hasOption("q")) {
-//            System.setOut(new NullPrintStream());
-//        } else if(cmd.hasOption("o")) {
-//            String fileName = cmd.getOptionValue("o", "output_file.txt");
-//            try {
-//                System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream(fileName)), true));
-//            } catch (FileNotFoundException e) {
-//                Logger.getLogger(Graph.class.getName()).log(Level.SEVERE, "Failed to create output stream.", e);
-//            }
-//
-//        }
-//    }
-
-    /**
-     * Sets the command line options.
-     * @param options
-     */
-//    protected static void setOptions(Options options) {
-//        options.addOption("n", true, "The number of nodes of the graph.");
-//        options.addOption("i", true, "The input file for the graph.");
-//        options.addOption("o", true, "The output file for the application");
-//        options.addOption("t", true, "The amount of threads to be used");
-//        options.addOption("q", false, "Determine if there should be output");
-//        options.addOption("gf",true, "File to which to write the graph information");
-//    }
-
 
     /**
      * Executes the parallel DFS.
@@ -128,9 +67,10 @@ public class GraphConcurrent {
             if(visitedNodesMapper.get(node).get()) {
                 continue;
             }
-            DFS dfs = new DFS(node);
+            DFS dfs = new DFS(node,ccnum);
             pool.invoke(dfs);
         }
+//        System.out.println("AALAH: "+this.ccnum);
 
         long endTime = System.nanoTime();
         long elapsedTime = endTime - startTime;
@@ -207,83 +147,6 @@ public class GraphConcurrent {
         }
     }
 
-
-    /**
-     * Construct a graph from an adjacency matrix in a file.
-     * @param fileName
-     */
-//    public void constructGraphFromFile(String fileName) {
-//
-//        System.out.println("Construction of graph from file started");
-//
-//        File file = new File(fileName);
-//
-//        try(BufferedReader br = new BufferedReader(new FileReader(file))) {
-//
-//            String numberLine = br.readLine();
-//            int nodeCount = Integer.valueOf(numberLine);
-//
-//            visitedNodesMapper = new ConcurrentHashMap<>(nodeCount);
-//            int count = 0;
-//            for(String line; (line = br.readLine()) != null; ) {
-//                String[] data = line.split("\\s+");
-//
-//                List<Integer> neighbours = new LinkedList<>();
-//
-//                for(int i = 0; i < data.length ; i++) {
-//                    if(data[i].equals("1")) {
-//                        neighbours.add(i);
-//                    }
-//                }
-//
-//                neighbors.put(count, neighbours);
-//
-//                nodeTree.put(count, new Node(count));
-//                visitedNodesMapper.put(count, new AtomicBoolean(false));
-//
-//                count++;
-//
-//            }
-//        } catch (IOException ex) {
-//            Logger.getLogger(Graph.class.getName()).log(Level.SEVERE, "Failed to construct graph from file.", ex);
-//            return;
-//        }
-//        System.out.println("Construction of graph from file finished");
-//    }
-
-    private void constructGraphFile(String fileName, int size) {
-//        System.out.println("Construction of graph file started.");
-        File file = new File(fileName);
-        try {
-            file.createNewFile();
-        } catch (IOException ex) {
-            Logger.getLogger(Graph.class.getName()).log(Level.SEVERE, "Failed to create file with name: " + fileName, ex);
-        }
-        try(BufferedWriter bwr = new BufferedWriter(new FileWriter(file))){
-            bwr.write(String.valueOf(size));
-            bwr.newLine();
-
-            ThreadLocalRandom random = ThreadLocalRandom.current();
-
-            for(int i=0; i < size; i++) {
-                StringBuilder builder = new StringBuilder();
-                for(int j=0; j < size; j++) {
-                    builder.append(random.nextInt(2));
-                    builder.append(" ");
-                }
-                String trimed = builder.toString().trim();
-                bwr.write(trimed);
-                bwr.newLine();
-            }
-
-        } catch (IOException ex) {
-            Logger.getLogger(Graph.class.getName()).log(Level.SEVERE, "Failed to construct adjecancy matrix file.", ex);
-            return;
-        }
-//        System.out.println("Construction of graph file finished.");
-
-    }
-
     /**
      * Class implementing {@link RecursiveAction} which does the actual computation.
      * A recursive resultless ForkJoinTask
@@ -291,10 +154,10 @@ public class GraphConcurrent {
     private class DFS extends RecursiveAction {
 
         int node;
-
-        public DFS(int node) {
+        public int ccnum;
+        public DFS(int node,int ccnum) {
             this.node = node;
-
+            this.ccnum = ccnum;
         }
 
         @Override
@@ -306,7 +169,8 @@ public class GraphConcurrent {
             AtomicBoolean isVisited = visitedNodesMapper.get(node);
             if(isVisited.getAndSet(true)) {
                 atomicInteger.set(1);
-//                System.out.println("New Connected Component");
+                System.out.println("New Connected Component");
+                ++ccnum;
                 return;
             }
 
@@ -324,9 +188,9 @@ public class GraphConcurrent {
                     continue;
                 }
 
-                child.setParent(parent);
+                child.setParent(parent);//TODO
 
-                DFS dfs = new DFS(neighbour);
+                DFS dfs = new DFS(neighbour,ccnum);
                 dfs.fork();
             }
 

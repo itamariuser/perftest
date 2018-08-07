@@ -6,14 +6,7 @@ public class ConcurrentIslandBenchmark {
 
     @State(Scope.Benchmark)
     public static class GraphState {
-        public GraphConcurrent graphConcurrent = new GraphConcurrent();
-        public GraphState()
-        {
-            graphConcurrent.addNode(1);
-            for (int i = 2; i < POD.nodesNum + 1; ++i) {
-                graphConcurrent.addEdge(1, i);
-            }
-        }
+        public static CGraph cGraph = new CGraph();
     }
 
     //DeepBenchmark.testtest  avgt    5  3643.870 ± 309.231  us/op
@@ -21,7 +14,7 @@ public class ConcurrentIslandBenchmark {
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public static String testtest(GraphState graphState) {
-        graphState.graphConcurrent.startAlgorithm(4);
+        graphState.cGraph.graphConcurrent.startAlgorithm(4);
         return "";
     }
 }
