@@ -8,19 +8,16 @@ class  CliqueGraph extends Graph {
 //    GraphConcurrent graphConcurrent;
     public CliqueGraph()
     {
-//        graphConcurrent = new GraphConcurrent();
-        edgeList = new ArrayList<Edge>();
-        nodeList = new HashSet<Integer>();//nodeList = new ArrayList<Integer>();
-        for(int i = 2; i < POD.nodesNum+1; ++i)
+        for(int i = 1; i < POD.nodesNum+1; ++i)
         {
-            addEdge(1, i);
+            nodeList.add(i);
         }
-        int size = nodeList.size();
-        for(int z = 1; z < size;++z)
+        for(int i = 1; i <nodeList.size()+1;++i)
         {
-            for(int y = z+1; y < size;++y)
+            for(int j = 1; j < nodeList.size()+1;++j)
             {
-                addEdge(z,y);
+                if(i!=j)
+                    addEdge(i,j);
             }
         }
         System.out.println("CLIQUE ISLAND BENCHMARK");

@@ -38,15 +38,15 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class CliqueIsland {
-//    @State(Scope.Thread)
+    @State(Scope.Thread)
     public static class GraphState
     {
         public static Graph graphChars = new CliqueGraph();
     }
 
-//    @Benchmark
-//    @BenchmarkMode(Mode.AverageTime)
-//    @OutputTimeUnit(TimeUnit.MICROSECONDS)
+    @Benchmark
+    @BenchmarkMode(Mode.AverageTime)
+    @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public static String testtest(GraphState graphState) {
         return ""+ graphState.graphChars.countGraphs();
     }

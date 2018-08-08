@@ -1,5 +1,7 @@
 package org.sample;
 
+import javafx.util.Pair;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,13 +31,23 @@ class Graph<E extends Comparable<E>> {
             this.startNode = startNode;
             this.endNode = endNode;
         }
+
+        @Override
+        public int hashCode() {
+            return new Pair<E,E>(startNode,endNode).hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return ((Edge)obj).startNode == startNode && ((Edge)obj).endNode == endNode;
+        }
     }
 
-    ArrayList<Edge> edgeList;
+    HashSet<Edge> edgeList;
     HashSet<E> nodeList; //ArrayList<E> nodeList;
     public long nodeCount;
     public Graph() {
-        edgeList = new ArrayList<Edge>();
+        edgeList = new HashSet<Edge>();
         nodeList = new HashSet<E>();
     }
 
@@ -53,42 +65,42 @@ class Graph<E extends Comparable<E>> {
 //        System.out.println("START: "+startNode);
 //        System.out.println("END: "+endNode);
 //      #2 ArrayList
-        E start = null, end = null;
-        for (E node : nodeList) {
-            if (startNode.compareTo(node) == 0) {
-                start = node;
-            }
-            else if (endNode.compareTo(node) == 0) {
-                end = node;
-            }
-        }
-        if (start == null) {
-            start = startNode;
-            ++nodeCount;
-            nodeList.add(start);
-        }
-        if (end == null) {
-            end = endNode;
-            ++nodeCount;
-            nodeList.add(end);
-        }
-//      #1 HashSet
 //        E start = null, end = null;
-//        if(nodeList.contains(startNode))
-//            start = startNode;
-//        else if(nodeList.contains(endNode))
-//            end = endNode;
-//
+//        for (E node : nodeList) {
+//            if (startNode.compareTo(node) == 0) {
+//                start = node;
+//            }
+//            else if (endNode.compareTo(node) == 0) {
+//                end = node;
+//            }
+//        }
 //        if (start == null) {
 //            start = startNode;
 //            ++nodeCount;
-//            nodeList.add(start);
+////            nodeList.add(start);
 //        }
 //        if (end == null) {
 //            end = endNode;
 //            ++nodeCount;
-//            nodeList.add(end);
+////            nodeList.add(end);
 //        }
+//      #1 HashSet
+        E start = null, end = null;
+        if(nodeList.contains(startNode))
+            start = startNode;
+        else if(nodeList.contains(endNode))
+            end = endNode;
+
+        if (start == null) {
+            start = startNode;
+            ++nodeCount;
+//            nodeList.add(start);
+        }
+        if (end == null) {
+            end = endNode;
+            ++nodeCount;
+//            nodeList.add(end);
+        }
 
         edgeList.add(new Edge(start, end));
     }

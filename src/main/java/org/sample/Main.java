@@ -10,7 +10,7 @@ public class Main {
 //        FlowerGraph cg = new FlowerGraph();
 //        System.out.println(cg.countGraphs());
 //        cg.countGraphs();
-        FourCliqueGraph z = new FourCliqueGraph();
+        CliqueGraph z = new CliqueGraph();
 //        for(int i = 1; i < POD.nodesNum+1; ++i)
 //        {
 //            q.addNode(i);

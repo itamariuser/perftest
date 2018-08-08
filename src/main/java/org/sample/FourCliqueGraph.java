@@ -6,8 +6,6 @@ import java.util.HashSet;
 public class FourCliqueGraph extends Graph {
     public FourCliqueGraph()
     {
-        edgeList = new ArrayList<Edge>();
-        nodeList = new HashSet<Integer>();//nodeList = new ArrayList<Integer>();
         for(int i = 1; i < POD.nodesNum+1; ++i)
         {
             nodeList.add(i);
