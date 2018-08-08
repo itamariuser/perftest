@@ -132,19 +132,25 @@ public class GraphConcurrent {
 
     public void addNode(int key)
     {
-        nodeTree.put(key, new Node(key));
-        neighbors.putIfAbsent(key, new LinkedList<>());
+        if(!nodeTree.contains(key))
+        {
+            nodeTree.put(key, new Node(key));
+            neighbors.putIfAbsent(key, new LinkedList<>());
 
-        visitedNodesMapper.put(key, new AtomicBoolean(false));
+            visitedNodesMapper.put(key, new AtomicBoolean(false));
+        }
     }
 
     public void addEdge(int key, int target)
     {
+//        if(key==8 || target ==8)
+//            System.out.println("AAAAAAAAAAA");
 //        visitedNodesMapper.put(key, new AtomicBoolean(false));// DO WE NEED THIS HERE?
-        if(nodeTree.keySet().contains(key) && nodeTree.keySet().contains(target))
+        if(nodeTree.keySet().contains(key) && nodeTree.keySet().contains(target) && !neighbors.get(key).contains(target) && !neighbors.get(target).contains(key))
         {
             neighbors.get(key).add(target);
         }
+
     }
 
     /**
@@ -170,6 +176,7 @@ public class GraphConcurrent {
             if(isVisited.getAndSet(true)) {
                 atomicInteger.set(1);
                 System.out.println("New Connected Component");
+                ++StaticCounter.counter;
                 ++ccnum;
                 return;
             }

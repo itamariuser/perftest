@@ -1,7 +1,7 @@
 package org.sample;
 
 import java.io.IOException;
-
+//TODO: Debug GraphConcurrent?
 
 public class Main {
     public static void main(String args[])
@@ -10,23 +10,27 @@ public class Main {
 //        FlowerGraph cg = new FlowerGraph();
 //        System.out.println(cg.countGraphs());
 //        cg.countGraphs();
-        GraphConcurrent q = new GraphConcurrent();
-        for(int i = 2; i < POD.nodesNum+1; ++i)
-        {
-            q.addNode(i);
-            q.addEdge(1, i);
-        }
-        int size = q.nodeTree.size();
-        for(int z = 1; z < size;++z)
-        {
-            for(int y = z+1; y < size;++y)
-            {
-                q.addNode(y);
-                q.addEdge(z,y);
-            }
-        }
-        q.startAlgorithm(4);
-        System.out.println();
+        FourCliqueGraph z = new FourCliqueGraph();
+//        for(int i = 1; i < POD.nodesNum+1; ++i)
+//        {
+//            q.addNode(i);
+//            q.addEdge(1, i);
+//        }
+//        q.addNode(31231);
+//        q.addEdge(1, 31231);
+//
+//        int size = q.nodeTree.size();
+//        for(int z = 1; z < POD.nodesNum+1;++z)
+//        {
+//            for(int y = 1; y < POD.nodesNum+1;++y)
+//            {
+//                if(y!=z) {
+//                    q.addNode(y);
+//                    q.addEdge(z, y);
+//                }
+//            }
+//        }
+        System.out.println("CCs: "+z.countGraphs());
 //        GraphConcurrent graphConcurrent = new GraphConcurrent();
 //        for(int i = 0; i< 503223;++i)
 //            graphConcurrent.addNode(i);
