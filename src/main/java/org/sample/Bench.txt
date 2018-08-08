@@ -35,3 +35,18 @@ InitBenchmarks.ThreeIslandInit   avgt    5      468.459 ±     44.588  us/op
 ThreeIsland.testtest             avgt    5     2308.225 ±    151.624  us/op
 
 Conclusion: HashSet shortens initialization by a factor of 10.
+
+
+2. 4 Clique Islands vs 1 Star Island:
+Benchmark                        Mode  Cnt       Score       Error  Units
+CliqueIslandsBenchmark.testtest  avgt    5  904716.653 ± 52981.907  us/op
+FlowerIsland.testtest            avgt    5  413159.591 ±  3349.155  us/op
+
+
+3. More edges -> longer execution.
+Benchmark                        Mode  Cnt         Score        Error  Units
+CliqueIsland.testtest            avgt   20  16025700.912 ± 118794.524  us/op
+CliqueIslandsBenchmark.testtest  avgt   20      6516.793 ±    139.282  us/op
+FlowerIsland.testtest            avgt   20      4633.952 ±    398.714  us/op
+
+Conclusion: Iterate over nodes instead of edges
