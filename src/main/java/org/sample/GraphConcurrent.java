@@ -70,7 +70,6 @@ public class GraphConcurrent {
             DFS dfs = new DFS(node,ccnum);
             pool.invoke(dfs);
         }
-//        System.out.println("AALAH: "+this.ccnum);
 
         long endTime = System.nanoTime();
         long elapsedTime = endTime - startTime;
@@ -175,7 +174,7 @@ public class GraphConcurrent {
             AtomicBoolean isVisited = visitedNodesMapper.get(node);
             if(isVisited.getAndSet(true)) {
                 atomicInteger.set(1);
-                System.out.println("New Connected Component");
+                System.out.println();
                 ++StaticCounter.counter;
                 ++ccnum;
                 return;

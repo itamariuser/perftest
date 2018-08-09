@@ -127,7 +127,7 @@ class Graph<E extends Comparable<E>> {
         return count;
     }
 
-    
+
     public HashSet<E> depthFirstSearchIterativeEdges(E node) {
         HashSet<E> visited = new HashSet<>();
         Stack<E> stack=new Stack<E>();
