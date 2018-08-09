@@ -5,24 +5,6 @@ import javafx.util.Pair;
 import java.util.*;
 
 class Graph<E extends Comparable<E>> {
-//    class Node {
-//        E name;
-//
-//        public Node(E name) {
-//            this.name = name;
-//        }
-//
-//        @Override
-//        public int hashCode() {
-//            return name.hashCode();
-//        }
-//
-//        @Override
-//        public boolean equals(Object obj) {
-//            return ((Node)obj).name.equals(this.name);
-//        }
-//    }
-
     class Edge {
         E startNode, endNode;
         public Edge(E startNode, E endNode) {
@@ -62,8 +44,6 @@ class Graph<E extends Comparable<E>> {
      *            the ending Node from the edge
      */
     public void addEdge(E startNode, E endNode) {
-//        System.out.println("START: "+startNode);
-//        System.out.println("END: "+endNode);
 //      #2 ArrayList
 //        E start = null, end = null;
 //        for (E node : nodeList) {
@@ -84,6 +64,7 @@ class Graph<E extends Comparable<E>> {
 //            ++nodeCount;
 ////            nodeList.add(end);
 //        }
+
 //      #1 HashSet
         E start = null, end = null;
         if(nodeList.contains(startNode))
@@ -107,7 +88,7 @@ class Graph<E extends Comparable<E>> {
 
         if(!neighbors.get(start).contains(end) && !neighbors.get(end).contains(start))// neighbors
             neighbors.get(start).add(end);
-//        edgeList.add(new Edge(start, end));
+        edgeList.add(new Edge(start, end));
     }
 
     /**
@@ -126,7 +107,7 @@ class Graph<E extends Comparable<E>> {
         for (E n : nodeList) {
             if (!markedNodes.contains(n)) {
                 markedNodes.add(n);
-                markedNodes.addAll(breadthFirstSearchIterativeNodes(n));
+                markedNodes.addAll(breadthFirstSearchIterativeEdges(n));
                 count++;
             }
         }
@@ -134,18 +115,6 @@ class Graph<E extends Comparable<E>> {
         return count;
     }
 
-//    public HashSet<E> searchIterativeEdges(boolean isDFS)
-//    {
-//        Stack<E> stack;
-//        Queue<E> queue;
-//        if(isDFS)
-//            stack = new Stack<>();
-//        else
-//            queue = new LinkedList<E>();
-//
-//        //TODO
-//
-//    }
 
     public HashSet<E> depthFirstSearchIterativeEdges(E node) {
 

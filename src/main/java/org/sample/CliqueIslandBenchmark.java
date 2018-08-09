@@ -32,12 +32,10 @@
 package org.sample;
 
 import org.openjdk.jmh.annotations.*;
-import org.openjdk.jmh.runner.Runner;
-
-import java.util.ArrayList;
+import org.openjdk.jmh.infra.Blackhole;
 import java.util.concurrent.TimeUnit;
 
-public class CliqueIsland {
+public class CliqueIslandBenchmark {
     @State(Scope.Thread)
     public static class GraphState
     {
@@ -48,8 +46,9 @@ public class CliqueIsland {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MICROSECONDS)
-    public static String testtest(GraphState graphState) {
-        return ""+ graphState.graphChars.countGraphs();
+    public static void testtest(GraphState graphState, Blackhole b)
+    {
+        b.consume(graphState.graphChars.countGraphs());
     }
 
 }

@@ -1,29 +1,22 @@
 package org.sample;
 
-
-public class FourCliqueGraph extends Graph {
-    public FourCliqueGraph()
+//"islandsNumber" independent cliques
+public class XCliqueGraph extends Graph {
+    public XCliqueGraph(int islandsNumber)
     {
+        if(islandsNumber < 0)
+            islandsNumber = 4;
         for(int i = 1; i < POD.nodesNum+1; ++i)
         {
             nodeList.add(i);
         }
-        int size = nodeList.size();
-
-        int islandsNumber = 4;
-
-        int currentNode = 0;
+        int currentNode;
         int islandSize = POD.nodesNum/(islandsNumber-1);
         for(int island = 0; island<islandsNumber; ++island,++currentNode)
         {
             currentNode = island*islandSize;
-            System.out.println("first: "+currentNode);
             for(int i = currentNode;i<currentNode+islandSize-1;++i)
-            {
-                System.out.println("#1: "+i+", #2: "+(i+1));
                 addEdge(i,i+1);
-            }
-
         }
     }
 }

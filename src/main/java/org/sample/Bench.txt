@@ -4,16 +4,7 @@
 CliqueIsland.testtest - all nodes connected - 815409 edges
 FourCliqueIslands.testtest - four island cliques - 50625 edges
 FlowerIsland.testtest - star graph - 902 edges
-
 for nodes = 903
-CC.f.OneIsland.testtest    avgt   40  1802.839 ± 32.149  us/op
-CC.f.ThreeIsland.testtest  avgt   40  2477.653 ± 53.397  us/op
-
-Benchmark              Mode  Cnt        Score   Error  Units
-CliqueIsland.testtest  avgt       1637376.700          us/op
-FourIsland.testtest    avgt          2427.283          us/op
-OneIsland.testtest     avgt          2297.444          us/op
-ThreeIsland.testtest   avgt          2126.018          us/op
 
 1. HashSet instead of ArrayList:
 With HashSet<E> nodeList:

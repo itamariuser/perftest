@@ -1,21 +1,21 @@
 package org.sample;
 
 import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.infra.Blackhole;
+
 import java.util.concurrent.TimeUnit;
-public class FlowerIsland {
+public class FlowerIslandBenchmark {
 
     @State(Scope.Benchmark)
     public static class GraphState {
         public FlowerGraph graphChars = new FlowerGraph();
     }
 
-    //DeepBenchmark.testtest  avgt    5  3643.870 ± 309.231  us/op
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MICROSECONDS)
-    public static String testtest(GraphState graphState) {
-        return ""+graphState.graphChars.countGraphs();
+    public static void testtest(GraphState graphState, Blackhole b)
+    {
+        b.consume(graphState.graphChars.countGraphs());
     }
-
-    ;
 }

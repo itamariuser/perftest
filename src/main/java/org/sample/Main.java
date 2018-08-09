@@ -7,7 +7,7 @@ public class Main {
     public static void main(String args[])
     {
         try{System.in.read();}catch(IOException e){}
-        FourCliqueGraph cg = new FourCliqueGraph();
+        XCliqueGraph cg = new XCliqueGraph(4);
         System.out.println(cg.countGraphs());
 //        cg.countGraphs();
 //        CliqueGraph z = new CliqueGraph();

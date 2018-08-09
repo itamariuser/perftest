@@ -1,21 +1,22 @@
 package org.sample;
 
 import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.infra.Blackhole;
+
 import java.util.concurrent.TimeUnit;
 
-public class CliqueIslandsBenchmark {
+public class XCliqueIslandBenchmark {
     @State(Scope.Benchmark)
     public static class GraphState
     {
-        public FourCliqueGraph graphChars = new FourCliqueGraph();
+        public XCliqueGraph graphChars = new XCliqueGraph(4);
     }
 
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MICROSECONDS)
-    public static String testtest(GraphState graphState)
+    public static void testtest(GraphState graphState, Blackhole b)
     {
-        graphState.graphChars.countGraphs();
-        return "";
+        b.consume(graphState.graphChars.countGraphs());
     }
 }

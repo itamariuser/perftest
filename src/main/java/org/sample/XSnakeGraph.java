@@ -1,9 +1,8 @@
 package org.sample;
 
-public class FourGraph extends Graph{
-    public FourGraph()
+public class XSnakeGraph extends Graph{
+    public XSnakeGraph()
     {
-        // add 3 independent node groups
         long i = 1, k = i+POD.nodesNum/4 - 1;
         for(int j = 0;j<4;++j)
         {
@@ -14,7 +13,7 @@ public class FourGraph extends Graph{
             ++i;
             k = i + POD.nodesNum/4 - 1;
         }
-        System.out.println("4 ISLAND BENCHMARK");
+        System.out.println("XSnakeGraph");
         System.out.println("NODES: "+nodeList.size());
     }
 }

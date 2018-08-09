@@ -1,14 +1,9 @@
 package org.sample;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 //Basically a clique the size of POD.nodesNum
 class  CliqueGraph extends Graph {
-//    GraphConcurrent graphConcurrent;
     public CliqueGraph()
     {
-        System.out.println("DFS ITERATIVE EDGES");
         for(int i = 1; i < POD.nodesNum+1; ++i)
         {
             nodeList.add(i);
@@ -21,7 +16,7 @@ class  CliqueGraph extends Graph {
                     addEdge(i,j);
             }
         }
-        System.out.println("CLIQUE ISLAND BENCHMARK");
+        System.out.println("CLIQUE ISLAND");
         System.out.println("NODES: "+nodeList.size());
     }
 }
