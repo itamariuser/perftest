@@ -127,8 +127,22 @@ class Graph<E extends Comparable<E>> {
         return count;
     }
 
+//    public HashSet<E> searchIterativeEdges(boolean isDFS)
+//    {
+//        Stack<E> stack;
+//        Queue<E> queue;
+//        if(isDFS)
+//            stack = new Stack<>();
+//        else
+//            queue = new LinkedList<E>();
+//
+//        //TODO
+//
+//    }
 
     public HashSet<E> depthFirstSearchIterativeEdges(E node) {
+
+
         HashSet<E> visited = new HashSet<>();
         Stack<E> stack=new Stack<E>();
         stack.add(node);

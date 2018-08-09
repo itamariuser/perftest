@@ -1,6 +1,7 @@
 package org.sample;
 
 import java.io.*;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.List;
@@ -64,9 +65,10 @@ public class GraphConcurrent {
 //        System.out.println("Algorithm execution started with " + threadCount + " threads");
         long startTime = System.nanoTime();
         for(Integer node : visitedNodesMapper.keySet()) {
-            if(visitedNodesMapper.get(node).get()) {
+            if(visitedNodesMapper.get(node).get())
                 continue;
-            }
+            System.out.println("New connected component");
+            ++StaticCounter.counter;
             DFS dfs = new DFS(node,ccnum);
             pool.invoke(dfs);
         }
@@ -145,6 +147,7 @@ public class GraphConcurrent {
 //        if(key==8 || target ==8)
 //            System.out.println("AAAAAAAAAAA");
 //        visitedNodesMapper.put(key, new AtomicBoolean(false));// DO WE NEED THIS HERE?
+
         if(nodeTree.keySet().contains(key) && nodeTree.keySet().contains(target) && !neighbors.get(key).contains(target) && !neighbors.get(target).contains(key))
         {
             neighbors.get(key).add(target);
@@ -169,14 +172,10 @@ public class GraphConcurrent {
         protected void compute() {
 
             AtomicInteger atomicInteger = new AtomicInteger();
-            //atomicInteger. threadName = Thread.currentThread().getName();
 
             AtomicBoolean isVisited = visitedNodesMapper.get(node);
             if(isVisited.getAndSet(true)) {
                 atomicInteger.set(1);
-                System.out.println();
-                ++StaticCounter.counter;
-                ++ccnum;
                 return;
             }
 
