@@ -105,9 +105,9 @@ class Graph<E extends Comparable<E>> {
         neighbors.putIfAbsent(start, new HashSet<E>());
         neighbors.putIfAbsent(end, new HashSet<E>());
 
-//        if(!neighbors.get(start).contains(end) && !neighbors.get(end).contains(start))// neighbors
-//            neighbors.get(start).add(end);
-        edgeList.add(new Edge(start, end));
+        if(!neighbors.get(start).contains(end) && !neighbors.get(end).contains(start))// neighbors
+            neighbors.get(start).add(end);
+//        edgeList.add(new Edge(start, end));
     }
 
     /**
@@ -126,7 +126,7 @@ class Graph<E extends Comparable<E>> {
         for (E n : nodeList) {
             if (!markedNodes.contains(n)) {
                 markedNodes.add(n);
-                markedNodes.addAll(depthFirstSearchIterativeEdges(n));
+                markedNodes.addAll(breadthFirstSearchIterativeNodes(n));
                 count++;
             }
         }
@@ -172,8 +172,6 @@ class Graph<E extends Comparable<E>> {
         return visited;
     }
     public HashSet<E> depthFirstSearchIterativeNodes(E node) {
-
-
         HashSet<E> visited = new HashSet<>();
         Stack<E> stack=new Stack<E>();
         stack.add(node);
