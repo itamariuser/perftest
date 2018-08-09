@@ -37,6 +37,7 @@ public class GraphConcurrent {
      *  Map between a Node and it's discovery status, i.e. if it was visited already.
      */
     private ConcurrentHashMap<Integer, AtomicBoolean> visitedNodesMapper;
+    private ConcurrentHashMap<Integer, AtomicInteger> componentNum;
     int ccnum = 0;
     public GraphConcurrent() {
         nodeTree = new ConcurrentHashMap<>();

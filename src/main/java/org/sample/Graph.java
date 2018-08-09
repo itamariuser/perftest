@@ -42,10 +42,12 @@ class Graph<E extends Comparable<E>> {
     }
 
     HashSet<Edge> edgeList;
+    HashMap<E, HashSet<E>> neighbors;
     HashSet<E> nodeList; //ArrayList<E> nodeList;
     public long nodeCount;
     public Graph() {
         edgeList = new HashSet<Edge>();
+        neighbors = new HashMap<>();
         nodeList = new HashSet<E>();
     }
 
@@ -92,15 +94,20 @@ class Graph<E extends Comparable<E>> {
         if (start == null) {
             start = startNode;
             ++nodeCount;
-//            nodeList.add(start);
+            nodeList.add(start);
         }
         if (end == null) {
             end = endNode;
             ++nodeCount;
-//            nodeList.add(end);
+            nodeList.add(end);
         }
 
-        edgeList.add(new Edge(start, end));
+        neighbors.putIfAbsent(start, new HashSet<E>());
+        neighbors.putIfAbsent(end, new HashSet<E>());
+
+        if(!neighbors.get(start).contains(end) && !neighbors.get(end).contains(start))// neighbors
+            neighbors.get(start).add(end);
+//        edgeList.add(new Edge(start, end));
     }
 
     /**
@@ -119,7 +126,7 @@ class Graph<E extends Comparable<E>> {
         for (E n : nodeList) {
             if (!markedNodes.contains(n)) {
                 markedNodes.add(n);
-                markedNodes.addAll(depthFirstSearchIterativeEdges(n));
+                markedNodes.addAll(breadthFirstSearchIterativeNodes(n));
                 count++;
             }
         }
@@ -164,6 +171,30 @@ class Graph<E extends Comparable<E>> {
         }
         return visited;
     }
+    public HashSet<E> depthFirstSearchIterativeNodes(E node) {
+
+
+        HashSet<E> visited = new HashSet<>();
+        Stack<E> stack=new Stack<E>();
+        stack.add(node);
+        visited.add(node);
+        while (!stack.isEmpty())
+        {
+            E element=stack.pop();
+            for (E e : neighbors.get(element)) {
+                if (!visited.contains(e))
+                {
+                    E n = e;
+                    if(n!=null && !visited.contains(n))
+                    {
+                        stack.add(n);
+                        visited.add(n);
+                    }
+                }
+            }
+        }
+        return visited;
+    }
 
     public HashSet<E> breadthFirstSearchIterativeEdges(E node) {
         Queue<E> queue = new LinkedList<>();
@@ -181,6 +212,30 @@ class Graph<E extends Comparable<E>> {
                         queue.add(n);
                         visited.add(n);
 
+                    }
+                }
+            }
+
+        }
+        return visited;
+    }
+
+    public HashSet<E> breadthFirstSearchIterativeNodes(E node) {
+        Queue<E> queue = new LinkedList<>();
+        HashSet<E> visited = new HashSet<>();
+        queue.add(node);
+        visited.add(node);
+        while (!queue.isEmpty())
+        {
+            E element=queue.remove();
+            for (E e : neighbors.get(element)) {
+                if (!visited.contains(e))
+                {
+                    E n = e;
+                    if(n!=null && !visited.contains(n))
+                    {
+                        queue.add(n);
+                        visited.add(n);
                     }
                 }
             }

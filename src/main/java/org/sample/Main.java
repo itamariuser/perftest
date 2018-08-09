@@ -7,8 +7,8 @@ public class Main {
     public static void main(String args[])
     {
         try{System.in.read();}catch(IOException e){}
-//        FlowerGraph cg = new FlowerGraph();
-//        System.out.println(cg.countGraphs());
+        FourCliqueGraph cg = new FourCliqueGraph();
+        System.out.println(cg.countGraphs());
 //        cg.countGraphs();
 //        CliqueGraph z = new CliqueGraph();
 ////        for(int i = 1; i < POD.nodesNum+1; ++i)
@@ -31,8 +31,8 @@ public class Main {
 ////            }
 ////        }
 //        System.out.println("CCs: "+z.countGraphs());
-        CGraph z = new CGraph();
-        z.graphConcurrent.startAlgorithm(4);
-        System.out.println(StaticCounter.counter);
+//        CGraph z = new CGraph();
+//        z.graphConcurrent.startAlgorithm(4);
+//        System.out.println(StaticCounter.counter);
     }
 }

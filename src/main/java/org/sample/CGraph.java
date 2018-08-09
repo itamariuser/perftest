@@ -18,6 +18,7 @@ class CGraph{
         graphConcurrent.addNode(1);
         graphConcurrent.addNode(2);
         graphConcurrent.addNode(3);
+        graphConcurrent.addNode(4);
         graphConcurrent.addEdge(1,2);
         graphConcurrent.addEdge(1,3);
 //        graphConcurrent.addEdge(3,2);
