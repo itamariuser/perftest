@@ -42,6 +42,7 @@ public class CliqueIsland {
     public static class GraphState
     {
         public static Graph graphChars = new CliqueGraph();
+
     }
 
     @Benchmark

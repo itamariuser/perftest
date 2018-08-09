@@ -8,6 +8,7 @@ class  CliqueGraph extends Graph {
 //    GraphConcurrent graphConcurrent;
     public CliqueGraph()
     {
+        System.out.println("DFS ITERATIVE EDGES");
         for(int i = 1; i < POD.nodesNum+1; ++i)
         {
             nodeList.add(i);

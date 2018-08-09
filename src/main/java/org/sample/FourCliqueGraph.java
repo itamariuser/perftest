@@ -1,7 +1,5 @@
 package org.sample;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 
 public class FourCliqueGraph extends Graph {
     public FourCliqueGraph()

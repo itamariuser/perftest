@@ -1,7 +1,11 @@
  1. mvn clean install
  2. java -jar target/benchmarks.jar -f 1 -wi 2 -i 5
 
- for nodes = 903, TODO
+CliqueIsland.testtest - all nodes connected
+CliqueIslandsBenchmark.testtest - four island cliques
+FlowerIsland.testtest - star graph
+
+for nodes = 903
 CC.f.OneIsland.testtest    avgt   40  1802.839 ± 32.149  us/op
 CC.f.ThreeIsland.testtest  avgt   40  2477.653 ± 53.397  us/op
 
@@ -50,3 +54,40 @@ CliqueIslandsBenchmark.testtest  avgt   20      6516.793 ±    139.282  us/op
 FlowerIsland.testtest            avgt   20      4633.952 ±    398.714  us/op
 
 Conclusion: Iterate over nodes instead of edges
+
+
+4. DFS: iterate over nodes vs over edges (HashSet<Edge> vs HashMap<Node, HashSet<Node>>)
+Nodes (edges stored as HashMap<Node, HashSet<Node>>):
+Benchmark                        Mode  Cnt   Score   Error  Units
+CliqueIsland.testtest            avgt    5  24990411.415 ± 277049.701  us/op
+CliqueIslandsBenchmark.testtest  avgt    5     16483.603 ±     55.672  us/op
+FlowerIsland.testtest            avgt    5      5003.602 ±    776.653  us/op
+
+
+Edge (edges stored as HashSet<Edge>):
+Benchmark                        Mode  Cnt         Score        Error  Units
+CliqueIsland.testtest            avgt    5  25103549.087 ± 732376.087  us/op
+CliqueIslandsBenchmark.testtest  avgt    5     11965.502 ±  15053.926  us/op
+FlowerIsland.testtest            avgt    5      5263.750 ±    401.805  us/op
+
+5. BFS: iterate over nodes vs over edges (HashSet<Edge> vs HashMap<Node, HashSet<Node>>)
+Nodes (edges stored as HashMap<Node, HashSet<Node>>):
+Benchmark                        Mode  Cnt   Score   Error  Units
+CliqueIsland.testtest            avgt    5  76.177 ± 0.786  us/op
+CliqueIslandsBenchmark.testtest  avgt    5  87.875 ± 0.528  us/op
+FlowerIsland.testtest            avgt    5  68.275 ± 1.217  us/op
+
+Edge (edges stored as HashSet<Edge>):
+Benchmark                        Mode  Cnt         Score        Error  Units
+CliqueIsland.testtest            avgt    5  25496119.135 ± 400904.896  us/op
+CliqueIslandsBenchmark.testtest  avgt    5      6805.215 ±    211.738  us/op
+FlowerIsland.testtest            avgt    5      2445.272 ±     61.887  us/op
+
+
+Recursive BFS on edges (edges stored as HashSet<Edge>):
+Benchmark                        Mode  Cnt         Score         Error  Units
+CliqueIsland.testtest            avgt    5  23273124.379 ± 4326499.584  us/op
+CliqueIslandsBenchmark.testtest  avgt    5     10564.635 ±   10869.453  us/op
+FlowerIsland.testtest            avgt    5      4343.816 ±    1029.136  us/op
+
+
