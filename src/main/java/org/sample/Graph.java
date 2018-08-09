@@ -2,9 +2,7 @@ package org.sample;
 
 import javafx.util.Pair;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 class Graph<E extends Comparable<E>> {
 //    class Node {
@@ -121,7 +119,7 @@ class Graph<E extends Comparable<E>> {
         for (E n : nodeList) {
             if (!markedNodes.contains(n)) {
                 markedNodes.add(n);
-                markedNodes.addAll(depthFirstSearch(n, new ArrayList<E>()));
+                markedNodes.addAll(depthFirstSearchIterativeEdges(n));
                 count++;
             }
         }
@@ -129,36 +127,62 @@ class Graph<E extends Comparable<E>> {
         return count;
     }
 
-    /**
-     * Implementation of depth first search.
-     *
-     * @param n
-     *            the actual visiting node
-     *
-     * @param visited
-     *            A list of already visited nodes in the depth first search
-     *
-     * @return returns a set of visited nodes
-     *
-     */
-
-    public ArrayList<E> depthFirstSearch(E n, ArrayList<E> visited) {
-        visited.add(n);
-        for (Edge e : edgeList) {
-            if (e.startNode.equals(n) && !visited.contains(e.endNode)) {
-                depthFirstSearch(e.endNode, visited);
+    
+    public HashSet<E> depthFirstSearchIterativeEdges(E node) {
+        HashSet<E> visited = new HashSet<>();
+        Stack<E> stack=new Stack<E>();
+        stack.add(node);
+        visited.add(node);
+        while (!stack.isEmpty())
+        {
+            E element=stack.pop();
+            for (Edge e: edgeList) {
+                if (e.startNode.equals(element) && !visited.contains(e.endNode))
+                {
+                    E n = e.endNode;
+                    if(n!=null && !visited.contains(n))
+                    {
+                        stack.add(n);
+                        visited.add(n);
+                    }
+                }
             }
         }
         return visited;
     }
 
-    public ArrayList<E> breadthFirstSearch(E n, ArrayList<E> visited) {
+    public HashSet<E> breadthFirstSearchIterativeEdges(E node) {
+        Queue<E> queue = new LinkedList<>();
+        HashSet<E> visited = new HashSet<>();
+        queue.add(node);
+        visited.add(node);
+        while (!queue.isEmpty())
+        {
+
+            E element=queue.remove();
+            for (Edge e: edgeList) {
+                if (e.startNode.equals(node) && !visited.contains(e.endNode)) {
+                    E n = e.endNode;
+                    if (n != null && !visited.contains(node)) {
+                        queue.add(n);
+                        visited.add(n);
+
+                    }
+                }
+            }
+
+        }
+        return visited;
+    }
+
+    public ArrayList<E> depthFirstSearchRecursive(E n, ArrayList<E> visited) {
         visited.add(n);
         for (Edge e : edgeList) {
             if (e.startNode.equals(n) && !visited.contains(e.endNode)) {
-                depthFirstSearch(e.endNode, visited);
+                depthFirstSearchRecursive(e.endNode, visited);
             }
         }
         return visited;
     }
+
 }
